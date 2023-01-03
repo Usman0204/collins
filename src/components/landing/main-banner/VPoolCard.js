@@ -337,11 +337,11 @@ const VPoolCard = () => {
                                                                             <span className="stacking__info-value">Yes</span>
                                                                         </p>
                                                                     </li>
-                                                                    <li className="stacking__info-item">
+                                                                    {/* <li className="stacking__info-item">
                                                                         <p className="stacking__info-name">Early unstake fee:
                                                                             <span className="stacking__info-value">{tier.penalty}%</span>
                                                                         </p>
-                                                                    </li>
+                                                                    </li> */}
                                                                     <li className="stacking__info-item">
                                                                         <p className="stacking__info-name">Status:
                                                                             <span className="stacking__info-value">Unlocked</span>
