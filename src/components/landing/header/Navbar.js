@@ -44,8 +44,8 @@ const Navbar = ({ colorData }) => {
             <div className="header-primary d-flex flex-wrap justify-content-between align-items-center">
               <div className="brand-logo d-none d-lg-inline-block">
                 <div className="logo">
-                  <a href="index-2.html">
-                    <img src="collieAssets/images/logos/CollieInu_hor.png" style={{ height: "50px" }} alt="logo" />
+                  <a >
+                    <img src="/CollieInu_hor.png" style={{ height: "50px" }} alt="logo" />
                   </a>
                 </div>
               </div>
@@ -125,7 +125,12 @@ const Navbar = ({ colorData }) => {
         </div>
       </div>
       {/* <!-- connect wallet modal end --> */}
+
+      
     </>
+
+
+
   );
 };
 

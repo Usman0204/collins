@@ -8,15 +8,19 @@ import VStakePoolBNBForBNB from './VStakePoolBNBForBNB.json'
 import VStakePoolBNBForToken from './VStakePoolBNBForToken.json'
 import VStakePoolTokenForBNB from './VStakePoolTokenForBNB.json'
 import VStakePoolTokenForToken from './VStakePoolTokenForToken.json'
+import stakingabi from '../utils/staking.json'
+import tokinAbi from '../utils/token.json'
 import approve from './approve.json'
 const getContract = (abi, address, web3) => {
   const _web3 = web3 ?? web3NoAccount;
   return new _web3.eth.Contract(abi, address);
 };
-
-// export const tokenContract = (address, web3) => {
-//     return getContract(tokenAbi, address, web3)
-// }
+export const getstakingAbi = (address, web3) => {
+  return getContract(stakingabi, address, web3)
+}
+export const getTokenAbi = (address, web3) => {
+  return getContract(tokinAbi, address, web3)
+}
 
 // export const StakeContract = (address, web3) => {
 //     return getContract(stakeAbi, address, web3)

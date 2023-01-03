@@ -18,7 +18,7 @@ function App() {
         {/* <Navbar/> */}
         <Switch>
           <Route exact path='/' component={Landing} />
-          <Route path='/about' component={VPoolCard} />
+          <Route exact path='/about/:tier' component={VPoolCard} />
         </Switch>
         {/* <Footer /> */}
       </Router>

@@ -16,7 +16,7 @@ function Loader({text}) {
           }}
         >
           <div className="h-100 d-flex align-items-center justify-content-center">
-            <div className="d-flex flex-wrap align-items-center justify-content-center">
+            <div className="d-flex  flex-wrap align-items-center justify-content-center">
               <img width={150} className="mt-n4 " src='\loader.svg' alt="" />
               <h2
                 className="text-white w-100 text-center mt-5"
