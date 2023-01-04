@@ -73,9 +73,9 @@ const Navbar = ({ colorData }) => {
                   {!account ? <a className="wallet-btn" href="#" data-bs-toggle="modal" data-bs-target="#wallet-option">
                     <span>Connect
                     </span> <i className="fa-solid fa-wallet"></i></a> :
-                    <a className="wallet-btn">
+                    <button onClick={connectMetamask} className="wallet-btn">
                       <span>Disconnect
-                      </span> <i className="fa-solid fa-wallet"></i></a>}
+                      </span> <i className="fa-solid fa-wallet"></i></button>}
                   {/* <!-- toggle icons --> */}
                   <div className="header-bar d-lg-none">
                     <span></span>
