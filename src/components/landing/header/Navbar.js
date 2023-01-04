@@ -44,9 +44,9 @@ const Navbar = ({ colorData }) => {
             <div className="header-primary d-flex flex-wrap justify-content-between align-items-center">
               <div className="brand-logo d-none d-lg-inline-block">
                 <div className="logo">
-                  <a >
+                  <Link to='/' >
                     <img src="/CollieInu_hor.png" style={{ height: "50px" }} alt="logo" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="header-wrapper justify-content-lg-end">
@@ -56,7 +56,7 @@ const Navbar = ({ colorData }) => {
                 <div className="menu-area">
                   <ul className="menu">
                     <li>
-                      <a href="https://collieinu.net">Home</a>
+                      <Link to="/">Home</Link>
 
 
 

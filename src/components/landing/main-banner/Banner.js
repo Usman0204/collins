@@ -10,8 +10,10 @@ import { useWeb3React } from "@web3-react/core";
 const Banner = () => {
     const [totalStakedSt, setTotalStakedSt] = useState(0)
     const [singleTierInfo, setSingleTierInfo] = useState()
+    const [totalstakers, setTotalStakers] = useState(0)
     const [loader, setLoader] = useState(false)
-    const tierDetail = [{
+    // let tierDetail;
+    const [tierDetail, setTierDetail] = useState([{
         name: 'Quick Collie',
         plan: 7,
         apy: 10
@@ -35,7 +37,7 @@ const Banner = () => {
         name: 'Rich Collie',
         plan: 42,
         apy: 50
-    }]
+    }])
     const { account } = useWeb3React()
     const web3 = useWeb3();
     console.log('singleTier', singleTierInfo)
@@ -52,22 +54,43 @@ const Banner = () => {
         }
 
     }
+    const totalStakers = async () => {
+        const contractAddress = Environment.staking;
+        const contract = getstakingAbi(contractAddress, web3);
+        // let amount = web3.utils.toWei(stakeData?.toString(), 'ether');
+        try {
+            let allowance = await contract.methods.totalStakers().call();
+            setTotalStakers(allowance)
+            console.log('totalStaked', allowance)
+        } catch (error) {
+            console.log('totalStaked', error)
+        }
+
+    }
     const tierInfo = async () => {
         setLoader(true)
         const contractAddress = Environment.staking;
         const contract = getstakingAbi(contractAddress, web3);
         let dumArray = []
-        for (let i = 1; i < 7; i++) {
-                let allowance = await contract.methods.pools(i).call();
-                dumArray.push(allowance)
+        let dumArray2 = [1, 2, 3, 4, 5, 6]
+        // for (let i = 1; i < 7; i++) {
+        for (const i of dumArray2) {
+            let allowance = await contract.methods.pools(i).call();
+            dumArray.push(allowance)
         }
         setSingleTierInfo(dumArray)
         setLoader(false)
     }
-    useEffect(() => {
-        totalStaked()
-        tierInfo()
-    }, [])
+    useEffect( () => {
+        if(account  && web3){
+            (async () => {
+            await totalStaked()
+            await tierInfo()
+            await totalStakers()
+        })();
+        }
+        
+    }, [account,web3])
 
     return (
         <>
@@ -121,7 +144,7 @@ const Banner = () => {
                             <div className="col-lg-6 col-sm-6">
                                 <div className="counter__item">
                                     <h3><span data-purecounter-start="0" data-purecounter-end="120"
-                                        className="purecounter">120</span>M+
+                                        className="purecounter">{totalstakers}</span>
                                     </h3>
                                     <p>number of stakers</p>
                                 </div>
@@ -231,7 +254,7 @@ const Banner = () => {
                                     <div className="stacking__project-item">
                                         <div className="stacking__project-itemInner">
                                             <h3><span className="purecounter" data-purecounter-start="0"
-                                                data-purecounter-end="69899">69899</span> </h3>
+                                                data-purecounter-end="69899">{totalstakers}</span> </h3>
                                             <p>Number of Stakers</p>
                                         </div>
                                     </div>

@@ -239,6 +239,19 @@
                 "type": "uint256"
             }
         ],
+        "name": "EarlyUnstake",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "tier",
+                "type": "uint256"
+            }
+        ],
         "name": "EmergencyUnstake",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -472,7 +485,27 @@
     },
     {
         "inputs": [],
+        "name": "earlyUstake",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "flipApyEnabled",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "flipEarlyStake",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -792,6 +825,19 @@
     {
         "inputs": [],
         "name": "totalStaked",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "totalStakers",
         "outputs": [
             {
                 "internalType": "uint256",
