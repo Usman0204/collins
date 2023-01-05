@@ -74,7 +74,7 @@ const Navbar = ({ colorData }) => {
                     <span>Connect
                     </span> <i className="fa-solid fa-wallet"></i></a> :
                     <button onClick={connectMetamask} className="wallet-btn">
-                      <span>Disconnect
+                      <span>Disconnect ({account?.slice(0,5)}...{account?.slice(account?.length-4,account?.length)})
                       </span> <i className="fa-solid fa-wallet"></i></button>}
                   {/* <!-- toggle icons --> */}
                   <div className="header-bar d-lg-none">
