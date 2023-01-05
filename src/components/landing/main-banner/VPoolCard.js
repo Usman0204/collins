@@ -67,8 +67,8 @@ const VPoolCard = () => {
         console.log("====>", e.target.value);
         if (e.target.value < 0) {
             setStakeData('')
-        } else if (e.target.value > parseFloat(tokenBalance)) {
-            setStakeData(parseInt(tokenBalance))
+        } else if (e.target.value > parseFloat(tokenBalance) - 1) {
+            setStakeData(parseInt(tokenBalance) - 1)
             // stakeInputt(e.target.value);
         } else {
             setStakeData(e.target.value)
