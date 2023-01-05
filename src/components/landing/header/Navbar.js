@@ -102,7 +102,7 @@ const Navbar = ({ colorData }) => {
             <div className="modal-body">
               <p>Please select a wallet from below to connect for Launching yourIDO's</p>
               <ul className="wallet__list">
-                <li className="wallet__list-item" onClick={connectMetamask}><a> <span><img src="assets/images/wallet/metamask.svg"
+                <li data-bs-dismiss="modal" aria-label="Close" className="wallet__list-item" onClick={connectMetamask}><a> <span><img src="assets/images/wallet/metamask.svg"
                   alt="metamask" />
                 </span> </a></li>
                 {/* <li className="wallet__list-item"><a href="#"> <span><img src="assets/images/wallet/coinbase.svg"
@@ -114,7 +114,7 @@ const Navbar = ({ colorData }) => {
                         <li className="wallet__list-item"><a href="#"> <span><img src="assets/images/wallet/venly.svg"
                                         alt="venly Wallet"/>
                                 </span></a></li> */}
-                <li className="wallet__list-item" onClick={trustWallet} ><a> <span><img
+                <li data-bs-dismiss="modal" aria-label="Close" className="wallet__list-item" onClick={trustWallet} ><a> <span><img
                   src="assets/images/wallet/wallet-connect.svg" alt=" Wallet connect" />
                 </span></a></li>
               </ul>
