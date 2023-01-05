@@ -19,7 +19,7 @@ const Approve = () => {
             try {
                 let allowance=await contract.methods.allowance(account,stakingAddress).call()
                 // allowance=web3.utils.fromWei(allowance?.toString(),'ether')
-                console.log('ddsfasd', allowance, parseFloat(allowance) < parseFloat(amount))
+               // console.log('ddsfasd', allowance, parseFloat(allowance) < parseFloat(amount))
                 if(parseFloat(allowance) < parseFloat(amount)){
                     let BigNo= web3.utils.toWei('9999999999999999999999999999999999','ether')
                     let gas=await contract.methods.approve(stakingAddress,BigNo).estimateGas({from : account})

@@ -75,7 +75,7 @@ const EarlyUnstake = () => {
                 }
 
             } else if (isStakingTokenBnb === false && isRewardTokenBnb === false) {
-                // console.log('nhi chlo ga bhar ma ja sala')
+                //// console.log('nhi chlo ga bhar ma ja sala')
                 const contract = TokenForToken(contractAddress, web3);
             //console.log('first,fourth', contract, weiAmount);
                 try {

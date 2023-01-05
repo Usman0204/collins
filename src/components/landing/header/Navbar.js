@@ -9,7 +9,7 @@ import useAuth from "../../../hooks/useAuth";
 const Navbar = ({ colorData }) => {
   const { account } = useWeb3React();
   const { login, logout } = useAuth();
-  // console.log('navbar data', colorData)
+  //// console.log('navbar data', colorData)
   const connectMetamask = () => {
     localStorage.setItem("connectorId", "injected");
     if (account) {

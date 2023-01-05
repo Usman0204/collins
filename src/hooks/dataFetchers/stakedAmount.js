@@ -12,11 +12,11 @@ export const StakedAmount = () => {
         try {
             let approved = await contract.methods.deposit(tier,account).call();
 
-            console.log('balance of contract hook', approved)
+           // console.log('balance of contract hook', approved)
             // approved = web3.utils.fromWei(approved?.stakedAmount?.toString(), 'ether')
             return approved;
         } catch (error) {
-            console.log('dfaeee', error)
+           // console.log('dfaeee', error)
         }
 
     }, [contract]);

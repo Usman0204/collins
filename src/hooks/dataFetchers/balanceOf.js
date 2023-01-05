@@ -11,11 +11,11 @@ export const BidBalance = () => {
         try {
             let approved = await contract.methods.balanceOf(account).call();
 
-            console.log('balance of contract hook', approved)
+           // console.log('balance of contract hook', approved)
             approved = web3.utils.fromWei(approved?.toString(), 'ether')
             return approved;
         } catch (error) {
-            console.log('dfaeee', error)
+           // console.log('dfaeee', error)
         }
 
     }, [contract]);

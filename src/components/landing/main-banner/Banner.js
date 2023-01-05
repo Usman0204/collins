@@ -40,7 +40,7 @@ const Banner = () => {
     }])
     const { account } = useWeb3React()
     const web3 = useWeb3();
-    console.log('singleTier', singleTierInfo)
+   // console.log('singleTier', singleTierInfo)
     const totalStaked = async () => {
         const contractAddress = Environment.staking;
         const contract = getstakingAbi(contractAddress, web3);
@@ -48,9 +48,9 @@ const Banner = () => {
         try {
             let allowance = await contract.methods.totalStaked().call();
             setTotalStakedSt(allowance)
-            console.log('totalStaked', allowance)
+           // console.log('totalStaked', allowance)
         } catch (error) {
-            console.log('totalStaked', error)
+           // console.log('totalStaked', error)
         }
 
     }
@@ -61,9 +61,9 @@ const Banner = () => {
         try {
             let allowance = await contract.methods.totalStakers().call();
             setTotalStakers(allowance)
-            console.log('totalStaked', allowance)
+           // console.log('totalStaked', allowance)
         } catch (error) {
-            console.log('totalStaked', error)
+           // console.log('totalStaked', error)
         }
 
     }
@@ -81,16 +81,16 @@ const Banner = () => {
         setSingleTierInfo(dumArray)
         setLoader(false)
     }
-    useEffect( () => {
-        if(account  && web3){
+    useEffect(() => {
+        if (account && web3) {
             (async () => {
-            await totalStaked()
-            await tierInfo()
-            await totalStakers()
-        })();
+                await totalStaked()
+                await tierInfo()
+                await totalStakers()
+            })();
         }
-        
-    }, [account,web3])
+
+    }, [account, web3])
 
     return (
         <>
@@ -99,13 +99,6 @@ const Banner = () => {
             {/* <!-- ==========Header Section Starts Here========== --> */}
 
             {/* <!-- ==========Header Section Ends Here========== --> */}
-
-
-
-
-
-
-
             {/* <!-- ==========>> Banner Section start Here <<========== --> */}
             <section className="banner banner--style2 bg--primary-color" id="home" style={{ backgroundImage: "url()", backgroundSize: "contain;" }}>
                 <div className="container ">
@@ -135,7 +128,7 @@ const Banner = () => {
                         <div className="row g-5 justify-content-center align-items-center">
                             <div className="col-lg-6 col-sm-6">
                                 <div className="counter__item">
-                                    <h3>$<span data-purecounter-start="0" data-purecounter-end="565"
+                                    <h3><span data-purecounter-start="0" data-purecounter-end="565"
                                         className="purecounter">{totalStakedSt / 10 ** 18}</span>
                                     </h3>
                                     <p>Total Staked Collie</p>

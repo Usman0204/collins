@@ -13,7 +13,7 @@ const ApprovePool = () => {
 // var contract;
     const approveThePool = useCallback(
         async (stakingTokenAddress, spender, value) => {
-            // console.log('values of the viber3',account,contractAddress,spender,value);
+            //// console.log('values of the viber3',account,contractAddress,spender,value);
            const  contract = approvePool(stakingTokenAddress, web3);
             const weiAmount = web3.utils.toWei(value + '');
             try {
