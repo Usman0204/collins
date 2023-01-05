@@ -344,7 +344,7 @@ const VPoolCard = () => {
                                                 <li className="nav-item" role="presentation">
                                                     <button className="nav-link active " id="period-tab1" data-bs-toggle="tab"
                                                         data-bs-target="#period-tab1-pane" type="button" role="tab"
-                                                        aria-controls="period-tab1-pane" aria-selected="true">Lock Period: {tier.lockPeriod} Days</button>
+                                                        aria-controls="period-tab1-pane" aria-selected="true">Lock Period: { parseInt(tier?.lockPeriod / 86400)} Days</button>
                                                 </li>
                                                 {/* <li className="nav-item" role="presentation">
                                                     <button className="nav-link" id="period-tab2" data-bs-toggle="tab"
@@ -394,7 +394,7 @@ const VPoolCard = () => {
                                                             <div className="col-sm-4">
                                                                 <div className="stacking__apy">
                                                                     <p>APY Rate </p>
-                                                                    <h3>{tier.apy}%</h3>
+                                                                    <h3>{tier.apy / 100}%</h3>
                                                                 </div>
                                                             </div>
                                                         </div>

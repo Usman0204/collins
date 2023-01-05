@@ -40,7 +40,7 @@ const Banner = () => {
     }])
     const { account } = useWeb3React()
     const web3 = useWeb3();
-   // console.log('singleTier', singleTierInfo)
+   console.log('singleTier', singleTierInfo)
     const totalStaked = async () => {
         const contractAddress = Environment.staking;
         const contract = getstakingAbi(contractAddress, web3);
@@ -180,16 +180,16 @@ const Banner = () => {
                                                     <h4></h4>
                                                     <ul>
                                                         <li>
-                                                            <p className="tier__title">Minimum Collie Required</p>
-                                                            <p className="tier__value">{item?.minallowed / 10 ** 18}</p>
+                                                            <p className="tier__title">Max Collie Allowed</p>
+                                                            <p className="tier__value">{item?.maxallowed / 10 ** 18}</p>
                                                         </li>
                                                         <li>
                                                             <p className="tier__title">Lock Time</p>
-                                                            <p className="tier__value">{item?.lockPeriod} days</p>
+                                                            <p className="tier__value">{parseInt(item?.lockPeriod / 86400)} days</p>
                                                         </li>
                                                         <li>
                                                             <p className="tier__title">Staking Reward APY</p>
-                                                            <p className="tier__value">{item?.apy}%</p>
+                                                            <p className="tier__value">{item?.apy / 100}%</p>
                                                         </li>
                                                     </ul>
                                                 </div>
