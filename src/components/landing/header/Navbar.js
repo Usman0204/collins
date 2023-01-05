@@ -51,7 +51,7 @@ const Navbar = ({ colorData }) => {
               </div>
               <div className="header-wrapper justify-content-lg-end">
                 <div className="mobile-logo d-lg-none">
-                  <a className="" href="index.html"><img src="assets/images/logo/logo.png" alt="logo" /></a>
+                  <Link className="" to="/"><img className="mLogo" src="/CollieInu_hor.png" alt="logo" /></Link>
                 </div>
                 <div className="menu-area">
                   <ul className="menu">
