@@ -13936,10 +13936,10 @@ react-copy-to-clipboard@^5.0.3:
     copy-to-clipboard "^3.3.1"
     prop-types "^15.8.1"
 
-react-countdown@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/react-countdown/-/react-countdown-2.3.2.tgz"
-  integrity sha512-Q4SADotHtgOxNWhDdvgupmKVL0pMB9DvoFcxv5AzjsxVhzOVxnttMbAywgqeOdruwEAmnPhOhNv/awAgkwru2w==
+react-countdown@^2.3.5:
+  version "2.3.5"
+  resolved "https://registry.npmjs.org/react-countdown/-/react-countdown-2.3.5.tgz"
+  integrity sha512-K26ENYEesMfPxhRRtm1r+Pf70SErrvW3g4CArLi/x6MPFjgfDFYePT4UghEj8p2nI0cqVV7/JjDgjyr//U60Og==
   dependencies:
     prop-types "^15.7.2"
 

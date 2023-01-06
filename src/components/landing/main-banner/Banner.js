@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 const Banner = () => {
     const [totalStakedSt, setTotalStakedSt] = useState(0)
-    const [singleTierInfo, setSingleTierInfo] = useState()
+    const [singleTierInfo, setSingleTierInfo] = useState([])
     const [totalstakers, setTotalStakers] = useState(0)
     const [loader, setLoader] = useState(false)
     // let tierDetail;
@@ -84,9 +84,11 @@ const Banner = () => {
     useEffect(() => {
         if (account && web3) {
             (async () => {
+                setLoader(true)
                 await totalStaked()
                 await tierInfo()
                 await totalStakers()
+                setLoader(false)
             })();
         }
 
@@ -185,7 +187,7 @@ const Banner = () => {
                                                         </li>
                                                         <li>
                                                             <p className="tier__title">Lock Time</p>
-                                                            <p className="tier__value">{parseInt(item?.lockPeriod / 86400)} days</p>
+                                                            <p className="tier__value">{(item?.lockPeriod / 86400)?.toFixed(2)} days</p>
                                                         </li>
                                                         <li>
                                                             <p className="tier__title">Staking Reward APY</p>
@@ -228,7 +230,7 @@ const Banner = () => {
                                 <div className="col-lg-4 col-sm-6">
                                     <div className="stacking__project-item">
                                         <div className="stacking__project-itemInner">
-                                            <h3>$ <span className="purecounter" data-purecounter-start="639499"
+                                            <h3><span className="purecounter" data-purecounter-start="639499"
                                                 data-purecounter-end="63939379">{totalStakedSt / 10 ** 18}</span> </h3>
                                             <p>Total Value Locked</p>
                                         </div>
@@ -238,7 +240,8 @@ const Banner = () => {
                                     <div className="stacking__project-item">
                                         <div className="stacking__project-itemInner">
                                             <h3><span className="purecounter" data-purecounter-start="0"
-                                                data-purecounter-end="136.99">136</span>.99 %</h3>
+                                                data-purecounter-end="136.99">{(singleTierInfo[0]?.apy / 100) + (singleTierInfo[1]?.apy / 100) + (singleTierInfo[2]?.apy / 100) + (singleTierInfo[3]?.apy / 100) + (singleTierInfo[4]?.apy / 100) + (singleTierInfo[5]?.apy / 100)}</span> % 
+                                                </h3>
                                             <p>Apy</p>
                                         </div>
                                     </div>

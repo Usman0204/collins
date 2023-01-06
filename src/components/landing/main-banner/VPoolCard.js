@@ -11,6 +11,7 @@ import Footer from './../footer/Footer';
 import Navbar from './../header/Navbar';
 import UserStaking from '../../../hooks/dataSenders/staking'
 import Environment from "../../../utils/Environment";
+import { getstakingAbi } from "../../../utils/contractHelpers";
 import { getTokenAbi } from "../../../utils/contractHelpers";
 import { StakedAmount } from '../../../hooks/dataFetchers/stakedAmount'
 import UserUnStaking from '../../../hooks/dataSenders/unStaking'
@@ -20,7 +21,7 @@ const VPoolCard = () => {
     const [tokenBalance, setTokenBalance] = useState(0)
     let { tier } = useParams()
     tier = JSON.parse(tier)
-   // console.log('param tier', tier)
+    // console.log('param tier', tier)
     const [stakeData, setStakeData] = useState(0)
     const [loader, setLoader] = useState(false)
     const [buttonState, setButtonState] = useState(false)
@@ -28,6 +29,7 @@ const VPoolCard = () => {
     const [allowanceRes, setAllowanceRes] = useState()
     const [early, setEarly] = useState()
     const [first, setTimeSt] = useState(0)
+    const [stakingReward, setTotalReward] = useState(0)
     const [tierDetail, setTierDetail] = useState([{
         name: 'Quick Collie',
         plan: 7,
@@ -64,7 +66,7 @@ const VPoolCard = () => {
     let { account } = useWeb3React()
     const { CurrentBlc } = BidBalance()
     const stakeInput = async (e) => {
-       // console.log("====>", e.target.value);
+        // console.log("====>", e.target.value);
         if (e.target.value < 0) {
             setStakeData('')
         } else if (e.target.value > parseFloat(tokenBalance) - 1) {
@@ -85,19 +87,20 @@ const VPoolCard = () => {
         try {
             setLoader(true)
             let res = await userAppriveAllowance(account, stakeData)
+            stakeUnstakeRes(res)
             //   if (res) {
             //     let stake = await userStakingBack(stakeData)
             //     setStakeUnstakeRes(stake)
-            //     toast.success('Staked Successfully', {
-            //       position: "top-right",
-            //       autoClose: 3000,
-            //       hideProgressBar: true,
-            //       closeOnClick: true,
-            //       pauseOnHover: true,
-            //       draggable: true,
-            //       progress: undefined,
-            //       theme: "colored",
-            //     })
+                toast.success('Approve Successfull', {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                })
             //   }
             //// console.log('ddsfasd', res)
             setLoader(false)
@@ -105,7 +108,7 @@ const VPoolCard = () => {
         } catch (error) {
             setLoader(false)
             //// console.log('ddsfasd', error)
-            toast.error('Stake Error', {
+            toast.error('Approve Failed', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -127,14 +130,14 @@ const VPoolCard = () => {
         let allowance = await contract.methods.allowance(account, stakingAddress).call();
         setAllowanceRes(allowance)
         allowance = web3.utils.fromWei(allowance?.toString(), 'ether');
-       // console.log('ddsfasd=====>', allowance, parseFloat(allowance))
+        // console.log('ddsfasd=====>', allowance, parseFloat(allowance))
         if (parseFloat(allowance) > 100000) {
             setButtonState(false)
         } else {
             setButtonState(true)
         }
     }
-   // console.log('sdfos', stakeAmount)
+    // console.log('sdfos', stakeAmount)
     const stakedAmFun = async () => {
         setLoader(true)
         let balance = await stakeAmountFun(tier.tier, account)
@@ -145,29 +148,31 @@ const VPoolCard = () => {
 
         if (balance?.endTime) {
             const date0 = new Date();
-           // console.log('alsjfdladjl', date0, dat)
+            // console.log('alsjfdladjl', date0, dat)
             if (dat > date0) {
                 setEarly(true)
-                var myDate = new Date("Thursday, 1 January 1970 00:00:00"); // Your timezone!
-                var myEpoch = myDate.getTime() / 1000.0;
+                var myDate = new Date("Thursday, 1 January 1970 05:00:00"); // Your timezone!
+                var myEpoch = myDate.getTime() / 1000;
                 let finaltime = parseInt(balance?.endTime) - parseInt(myEpoch)
+                let dat = new Date(0);
+                dat.setUTCSeconds(parseFloat(finaltime));
+                console.log('alsjfdladjl', finaltime, dat)
                 let datFinal = new Date(0);
                 datFinal.setUTCSeconds(parseFloat(finaltime));
-                setTimeSt(datFinal)
-               // console.log('jdfjlds', datFinal)
-                
+                setTimeSt(dat)
+                // console.log('jdfjlds', datFinal)
             } else {
                 setEarly(false)
-                setTimeSt('0-0-0')
+                setTimeSt(0)
             }
-           
+            console.log('alsjfdladjl====out', first)
             //             var utcSeconds = balance?.endTime;
             // var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
             // d.setUTCSeconds(utcSeconds);
         }
         // setTokenBalance(balance)
         setrewardState(balance)
-       // console.log('aldflasfl', balance)
+        // console.log('aldflasfl', balance)
         setLoader(false)
     }
     const stakeFun = async () => {
@@ -191,8 +196,8 @@ const VPoolCard = () => {
             setStakeData(0)
         } catch (error) {
             setLoader(false)
-           // console.log('ddsfasd', error)
-            toast.error('Stake Error', {
+            // console.log('ddsfasd', error)
+            toast.error('Staking Error', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -205,15 +210,15 @@ const VPoolCard = () => {
         }
 
     }
-   // console.log('timer', rewardState)
+    // console.log('timer', rewardState)
     const Unstake = async () => {
         try {
             setLoader(true)
-            let unstake = await userUnStakingBack(tier.tier,true)
+            let unstake = await userUnStakingBack(tier.tier, true)
             setStakeUnstakeRes(unstake)
             setLoader(false)
             setStakeData(0)
-            toast.success('UnStake Successfully', {
+            toast.success('Withdraw Successfull', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -228,7 +233,7 @@ const VPoolCard = () => {
         } catch (error) {
             setLoader(false)
             //// console.log('ddsfasd unstake', error)
-            toast.error('Unstake Error', {
+            toast.error('Withdraw Failed', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -244,11 +249,11 @@ const VPoolCard = () => {
     const EarlyUnstake = async () => {
         try {
             setLoader(true)
-            let unstake = await userUnStakingBack(tier.tier,false)
+            let unstake = await userUnStakingBack(tier.tier, false)
             setStakeUnstakeRes(unstake)
             setLoader(false)
             setStakeData(0)
-            toast.success('UnStake Successfully', {
+            toast.success('Early Withdraw Successfull', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -263,7 +268,7 @@ const VPoolCard = () => {
         } catch (error) {
             setLoader(false)
             //// console.log('ddsfasd unstake', error)
-            toast.error('Unstake Error', {
+            toast.error('Early Withdraw Failed', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -276,13 +281,39 @@ const VPoolCard = () => {
         }
 
     }
+    const renderer = ({ days, hours, minutes, seconds, completed }) => {
+        if (completed) {
+            // Render a complete state
+            //   window.location.reload()
+              setStakeUnstakeRes('this state will call useEffect')
+            console.log('Im the bos',12345678)
+            return null
+        } else {
+            // Render a countdown
+
+            return (
+                <span>
+                    {days < 10 && 0}{days} : {hours < 10 && 0}{hours} : {minutes < 10 && 0}{minutes} :{" "} {seconds < 10 && 0}{seconds}
+                </span>
+            );
+        }
+    };
+    const tierReward=async()=>{
+        const contractAddress = Environment.staking;
+        const contract = getstakingAbi(contractAddress, web3);
+        let reward = await contract.methods.checkReward(account, tier?.tier).call();
+            setTotalReward(reward)
+    }
     useEffect(() => {
         if (account) {
             //// console.log('askdfasl staked amount', account)
             (async () => {
+                setLoader(true)
                 await func()
                 await allowanceCheck()
                 await stakedAmFun()
+                await tierReward()
+                setLoader(false)
             })()
         }
         window.scrollTo(0, 0)
@@ -344,7 +375,7 @@ const VPoolCard = () => {
                                                 <li className="nav-item" role="presentation">
                                                     <button className="nav-link active " id="period-tab1" data-bs-toggle="tab"
                                                         data-bs-target="#period-tab1-pane" type="button" role="tab"
-                                                        aria-controls="period-tab1-pane" aria-selected="true">Lock Period: { parseInt(tier?.lockPeriod / 86400)} Days</button>
+                                                        aria-controls="period-tab1-pane" aria-selected="true">Lock Period: {(tier?.lockPeriod / 86400)?.toFixed(2)} Days</button>
                                                 </li>
                                                 {/* <li className="nav-item" role="presentation">
                                                     <button className="nav-link" id="period-tab2" data-bs-toggle="tab"
@@ -381,7 +412,12 @@ const VPoolCard = () => {
                                                                     </li>
                                                                     <li className="stacking__info-item">
                                                                         <p className="stacking__info-name">Early unstake fee:
-                                                                            <span className="stacking__info-value">{tier.penalty}%</span>
+                                                                            <span className="stacking__info-value"> {tier.penalty}%</span>
+                                                                        </p>
+                                                                    </li>
+                                                                    <li className="stacking__info-item">
+                                                                        <p className="stacking__info-name">Reward Earned:
+                                                                            <span className="stacking__info-value"> {(stakingReward / 10 ** 18)?.toFixed(4)}</span>
                                                                         </p>
                                                                     </li>
                                                                     {/* <li className="stacking__info-item">
@@ -524,12 +560,12 @@ const VPoolCard = () => {
                                                     <input disabled={stakeAmount > 0} value={stakeData} onChange={stakeInput} type="number" className="form-control" aria-label="Approve Stack"
                                                         id="approve-stack" placeholder="0.00" />
                                                     <button disabled={stakeAmount > 0} onClick={() => setStakeData(tokenBalance)} className="input-group-text text-light">Max</button>
-                                                    {!buttonState ? <button disabled={stakeAmount > 0} onClick={stakeFun} disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0} className={parseFloat(stakeAmount) > 0 ?"input-group-btn stakedBtn" : "input-group-btn" }>Stake</button> : <button onClick={approve} className="input-group-btn">Approve</button>}
+                                                    {!buttonState ? <button disabled={stakeAmount > 0} onClick={stakeFun} disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0} className={parseFloat(stakeAmount) > 0 ? "input-group-btn stakedBtn" : "input-group-btn"}>Stake</button> : <button onClick={approve} className="input-group-btn">Approve</button>}
                                                 </div>
                                             </div>
                                             <div className="stacking__approve-withdraw">
                                                 <div className="d-flex justify-content-between">
-                                                    <p>Unstake Date :</p>
+                                                    <p>Unstake Time :</p>
                                                     <label for="withdraw-stack" className="form-label">Staked: <span>{stakeAmount} COLLIE</span>
                                                     </label>
                                                 </div>
@@ -538,8 +574,8 @@ const VPoolCard = () => {
 
                                                 <div className="input-group">
                                                     <button className="form-control">
-                                                        {JSON.stringify(first)?.split(`"`)[1]?.slice(0, 10) || 0}
-                                                        {/* <Countdown date={first} /> */}
+                                                        {/* {JSON.stringify(first)?.split(`"`)[1]?.slice(0, 10) || 0} */}
+                                                        {first !== 0 ? <Countdown date={first} renderer={renderer} /> : '0-0-0'}
                                                     </button>
                                                     {/* <input value={stakeAmount} disabled type="text" className="form-control" aria-label="Withdraw Stack"
                                                         id="withdraw-stack" placeholder="0.00" /> */}

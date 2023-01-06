@@ -31,7 +31,7 @@
     "react-bootstrap": "^2.3.1",
     "react-compound-timer": "^1.1.14",
     "react-copy-to-clipboard": "^5.0.3",
-    "react-countdown": "^2.3.2",
+    "react-countdown": "^2.3.5",
     "react-dom": "^16.12.0",
     "react-loading-overlay": "^1.0.1",
     "react-material-ui-form-validator": "^2.1.4",
