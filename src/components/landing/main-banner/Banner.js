@@ -131,7 +131,7 @@ const Banner = () => {
                             <div className="col-lg-6 col-sm-6">
                                 <div className="counter__item">
                                     <h3><span data-purecounter-start="0" data-purecounter-end="565"
-                                        className="purecounter">{totalStakedSt / 10 ** 18}</span>
+                                        className="purecounter">{(totalStakedSt / 10 ** 18)?.toFixed(2)}</span>
                                     </h3>
                                     <p>Total Staked Collie</p>
                                 </div>
@@ -231,7 +231,7 @@ const Banner = () => {
                                     <div className="stacking__project-item">
                                         <div className="stacking__project-itemInner">
                                             <h3><span className="purecounter" data-purecounter-start="639499"
-                                                data-purecounter-end="63939379">{totalStakedSt / 10 ** 18}</span> </h3>
+                                                data-purecounter-end="63939379">{(totalStakedSt / 10 ** 18)?.toFixed(2)}</span> </h3>
                                             <p>Total Value Locked</p>
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@ const Banner = () => {
                                             <h3><span className="purecounter" data-purecounter-start="0"
                                                 data-purecounter-end="136.99">{(singleTierInfo[0]?.apy / 100) + (singleTierInfo[1]?.apy / 100) + (singleTierInfo[2]?.apy / 100) + (singleTierInfo[3]?.apy / 100) + (singleTierInfo[4]?.apy / 100) + (singleTierInfo[5]?.apy / 100)}</span> % 
                                                 </h3>
-                                            <p>Apy</p>
+                                            <p>Total Apy</p>
                                         </div>
                                     </div>
                                 </div>

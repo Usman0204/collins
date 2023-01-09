@@ -29,6 +29,7 @@ const Approve = () => {
                     return allowance;
                 }
             } catch (error) {
+                console.log('this is the fk scene', error)
                 throw (error)
             }
         },

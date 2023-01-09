@@ -86,8 +86,8 @@ const VPoolCard = () => {
     const approve = async () => {
         try {
             setLoader(true)
-            let res = await userAppriveAllowance(account, stakeData)
-            stakeUnstakeRes(res)
+            let res = await userAppriveAllowance(account, stakeData);
+            setStakeUnstakeRes(res)
             //   if (res) {
             //     let stake = await userStakingBack(stakeData)
             //     setStakeUnstakeRes(stake)
@@ -107,7 +107,7 @@ const VPoolCard = () => {
             setStakeData(0)
         } catch (error) {
             setLoader(false)
-            //// console.log('ddsfasd', error)
+            console.log('this is the fk scene', error)
             toast.error('Approve Failed', {
                 position: "top-right",
                 autoClose: 5000,
@@ -131,13 +131,14 @@ const VPoolCard = () => {
         setAllowanceRes(allowance)
         allowance = web3.utils.fromWei(allowance?.toString(), 'ether');
         // console.log('ddsfasd=====>', allowance, parseFloat(allowance))
-        if (parseFloat(allowance) > 100000) {
+        if (parseFloat(allowance) > parseFloat(stakeAmount)) {
             setButtonState(false)
         } else {
+            setStakeData(parseInt(tokenBalance) - 1)
             setButtonState(true)
         }
     }
-    // console.log('sdfos', stakeAmount)
+    console.log('sdfos', buttonState)
     const stakedAmFun = async () => {
         setLoader(true)
         let balance = await stakeAmountFun(tier.tier, account)
@@ -196,8 +197,8 @@ const VPoolCard = () => {
             setStakeData(0)
         } catch (error) {
             setLoader(false)
-            // console.log('ddsfasd', error)
-            toast.error('Staking Error', {
+            console.log('ddsfasd', error?.message?.split('Signature:')[1])
+            toast.error(error?.toString()?.split('{')[1]?.split('message')[1]?.split('execution reverted:')?.[1]?.split(`",`)[0] || error?.message?.split('Signature:')[1], {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -405,9 +406,19 @@ const VPoolCard = () => {
                                                                             <span className="stacking__info-value">{tier.lockPeriod} Days</span>
                                                                         </p>
                                                                     </li> */}
+                                                                   <li className="stacking__info-item">
+                                                                        <p className="stacking__info-name">Min Tx Allowed:
+                                                                            <span className="stacking__info-value">{tier?.minTxAmount / 10**18}</span>
+                                                                        </p>
+                                                                    </li>
                                                                     <li className="stacking__info-item">
-                                                                        <p className="stacking__info-name">Re-locks on registration:
-                                                                            <span className="stacking__info-value">Yes</span>
+                                                                        <p className="stacking__info-name">Max Tx Allowed:
+                                                                            <span className="stacking__info-value">{tier?.maxTxAmount / 10**18}</span>
+                                                                        </p>
+                                                                    </li>
+                                                                    <li className="stacking__info-item">
+                                                                        <p className="stacking__info-name">Max Allowed Wallet:
+                                                                            <span className="stacking__info-value">{tier?.maxAllowedWallets}</span>
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
@@ -448,8 +459,8 @@ const VPoolCard = () => {
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
-                                                                        <p className="stacking__info-name">Re-locks on registration:
-                                                                            <span className="stacking__info-value">Yes</span>
+                                                                        <p className="stacking__info-name">Min Tx Allowed:
+                                                                            <span className="stacking__info-value">{tier?.minTxAmount}</span>
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
@@ -485,8 +496,8 @@ const VPoolCard = () => {
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
-                                                                        <p className="stacking__info-name">Re-locks on registration:
-                                                                            <span className="stacking__info-value">Yes</span>
+                                                                        <p className="stacking__info-name">Min Tx Amount:
+                                                                            <span className="stacking__info-value">{tier?.minTxAmount}</span>
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
@@ -559,8 +570,8 @@ const VPoolCard = () => {
                                                 <div className="input-group">
                                                     <input disabled={stakeAmount > 0} value={stakeData} onChange={stakeInput} type="number" className="form-control" aria-label="Approve Stack"
                                                         id="approve-stack" placeholder="0.00" />
-                                                    <button disabled={stakeAmount > 0} onClick={() => setStakeData(tokenBalance)} className="input-group-text text-light">Max</button>
-                                                    {!buttonState ? <button disabled={stakeAmount > 0} onClick={stakeFun} disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0} className={parseFloat(stakeAmount) > 0 ? "input-group-btn stakedBtn" : "input-group-btn"}>Stake</button> : <button onClick={approve} className="input-group-btn">Approve</button>}
+                                                    <button disabled={stakeAmount > 0} onClick={() => setStakeData(tokenBalance - 1)} className="input-group-text text-light">Max</button>
+                                                    {!buttonState ? <button onClick={stakeFun} disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0 || stakeAmount > 0} className={parseFloat(stakeAmount) > 0 ? "input-group-btn stakedBtn" : "input-group-btn"}>Stake</button> : <button disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0} onClick={approve} className="input-group-btn">Approve</button>}
                                                 </div>
                                             </div>
                                             <div className="stacking__approve-withdraw">
