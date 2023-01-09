@@ -10,5 +10,4 @@ let Environment = {
   // staking:'0x62524379D10f98ebfB452995966DD1CA58570eAa',
   // token:'0x99366A7388c9E5baD3A0835fA6361917dc0d8448'
 };
-
 export default Environment;
