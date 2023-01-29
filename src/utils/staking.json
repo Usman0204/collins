@@ -252,19 +252,6 @@
                 "type": "uint256"
             }
         ],
-        "name": "EmergencyUnstake",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tier",
-                "type": "uint256"
-            }
-        ],
         "name": "UnstakeTokens",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -281,6 +268,20 @@
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "changeApyEnabled",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "changeEarlyStake",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -333,6 +334,20 @@
             }
         ],
         "name": "changePenalty",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "changeStakeState",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "changeUnStakeState",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -494,34 +509,6 @@
             }
         ],
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "flipApyEnabled",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "flipEarlyStake",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "flipStakeState",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "flipUnStakeState",
-        "outputs": [],
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
