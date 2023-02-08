@@ -412,8 +412,8 @@ const VPoolCard = () => {
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
-                                                                        <p className="stacking__info-name">Max Tx Allowed:
-                                                                            <span className="stacking__info-value">{tier?.maxTxAmount / 10**18}</span>
+                                                                        <p className="stacking__info-name">Max Allowed Tokens:
+                                                                            <span className="stacking__info-value">{tier?.maxallowedTokens / 10**18}</span>
                                                                         </p>
                                                                     </li>
                                                                     <li className="stacking__info-item">
@@ -568,10 +568,11 @@ const VPoolCard = () => {
                                                 <label for="approve-stack" className="form-label">Balance: <span>{parseFloat(tokenBalance)?.toFixed(2)} COLLIE</span>
                                                 </label>
                                                 <div className="input-group">
-                                                    <input disabled={stakeAmount > 0} value={stakeData} onChange={stakeInput} type="number" className="form-control" aria-label="Approve Stack"
+                                                {/* disabled={stakeAmount > 0}  disabled={stakeAmount > 0}  !stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || || stakeAmount > 0*/ }
+                                                    <input  value={stakeData} onChange={stakeInput} type="number" className="form-control" aria-label="Approve Stack"
                                                         id="approve-stack" placeholder="0.00" />
-                                                    <button disabled={stakeAmount > 0} onClick={() => setStakeData(tokenBalance - 1)} className="input-group-text text-light">Max</button>
-                                                    {!buttonState ? <button onClick={stakeFun} disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0 || stakeAmount > 0} className={parseFloat(stakeAmount) > 0 ? "input-group-btn stakedBtn" : "input-group-btn"}>Stake</button> : <button disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0} onClick={approve} className="input-group-btn">Approve</button>}
+                                                    <button  onClick={() => setStakeData(tokenBalance - 1)} className="input-group-text text-light">Max</button>
+                                                    {!buttonState ? <button onClick={stakeFun} disabled={ parseFloat(tokenBalance) <= 0 } className={parseFloat(stakeAmount) > 0 ? "input-group-btn stakedBtn" : "input-group-btn"}>Stake</button> : <button disabled={!stakeData || parseFloat(stakeData) <= 0 || parseFloat(stakeData) === stakeAmount || parseFloat(tokenBalance) <= 0} onClick={approve} className="input-group-btn">Approve</button>}
                                                 </div>
                                             </div>
                                             <div className="stacking__approve-withdraw">

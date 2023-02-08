@@ -183,7 +183,7 @@ const Banner = () => {
                                                     <ul>
                                                         <li>
                                                             <p className="tier__title">Max Collie Allowed</p>
-                                                            <p className="tier__value">{(item?.maxallowed / 10 ** 18)?.toFixed(2)}</p>
+                                                            <p className="tier__value">{(item?.maxallowedTokens / 10 ** 18)?.toFixed(2)}</p>
                                                         </li>
                                                         <li>
                                                             <p className="tier__title">Lock Time</p>
